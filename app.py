@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def app():
+def main():
     with requests.Session() as session:
         session.headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"}
 
@@ -39,3 +39,7 @@ def app():
             }
             for topic in data['body']
         ]
+
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
