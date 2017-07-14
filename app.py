@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 
-from flask import Flask
+from flask import Flask, jsonify
 import requests
 
 
@@ -29,7 +29,7 @@ def main():
         response = session.get(ML_TOP_URL.format(id=ml_topic_id))
         data = response.json()
 
-        return [
+        return jsonify([
             {
                 "uid": str(topic["id"]),
                 "updateDate": datetime.strptime(topic["reg_date"], "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%dT%H:%M:%S.%fZ"),  # "2016-04-10T00:00:00.0Z"
@@ -38,7 +38,7 @@ def main():
                 "redirectionUrl": topic["externalURL"]
             }
             for topic in data['body']
-        ]
+        ])
 
 
 if __name__ == '__main__':
